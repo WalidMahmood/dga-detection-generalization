@@ -55,11 +55,13 @@ g:/dga_killer/
 │   └── 03_eda_after_and_comparison.ipynb
 │
 ├── training/                      # Model training & benchmark notebooks
+│   ├── MODERNBERT-FINETUNED.ipynb # Fine-tuned ModernBERT on full 1.26M dataset
+│   ├── Dual-Branch PERFECT.ipynb  # 4.1M Dual-Branch character + word BiLSTM
+│   ├── Dual-Branch with Explicit Semantic Coherence.ipynb # 0.73M semantic cosine model
+│   ├── 06_final_test_evaluation.ipynb # FULLY EXECUTED final benchmark notebook
+│   ├── FINAL-EVALUATION.ipynb     # (Mirror copy of 06_final_test_evaluation.ipynb)
 │   ├── 01_rf_baseline.ipynb       # Random Forest (11 lexical features)
 │   ├── 02_xgboost_baseline.ipynb  # XGBoost (11 lexical features)
-│   ├── 04_modernbert_finetune.ipynb # ModernBERT fine-tuning script
-│   ├── 05_dual_branch_coherent.ipynb # Dual-branch semantic coherence training
-│   ├── 06_final_test_evaluation.ipynb # FULLY EXECUTED final benchmark notebook
 │   └── weights/                   # Trained model weights & FastText binary
 │
 ├── reports/                       # Generated publication deliverables
@@ -75,18 +77,35 @@ g:/dga_killer/
 │   ├── tables/                    # LaTeX (.tex) and CSV (.csv) comparison tables
 │   └── metrics/                   # Complete evaluation JSON metrics
 │
-└── scripts/                       # Reusable automation and execution scripts
-    ├── run_final_master_evaluation.py # Standalone evaluation pipeline
-    └── build_rich_06_notebook.py      # Notebook generator
+├── scripts/                       # Reusable automation and execution scripts
+│   ├── run_final_master_evaluation.py # Standalone evaluation pipeline
+│   └── build_rich_06_notebook.py      # Notebook generator
+│
+└── requirements.txt               # Complete pinned python dependencies
 ```
 
 ---
 
-## 3. How to View & Re-Run
+## 3. Quickstart & How to View
 
-- **View Executed Notebook:** Open [`training/06_final_test_evaluation.ipynb`](training/06_final_test_evaluation.ipynb) to inspect the pre-rendered tables, confusion matrices, and figures.
-- **Re-Run Live Evaluation:**
-  ```bash
-  python scripts/run_final_master_evaluation.py
-  ```
-- **LaTeX Tables for Paper:** Ready-to-copy LaTeX code is located in [`reports/tables/final_test_benchmark_table.tex`](reports/tables/final_test_benchmark_table.tex) and [`reports/tables/final_test_detailed_metrics.tex`](reports/tables/final_test_detailed_metrics.tex).
+### 1. Installation
+```bash
+pip install -r requirements.txt
+```
+
+### 2. View Executed Notebooks
+- **Final Benchmark Evaluation:** Open [`training/06_final_test_evaluation.ipynb`](training/06_final_test_evaluation.ipynb) or [`training/FINAL-EVALUATION.ipynb`](training/FINAL-EVALUATION.ipynb). All cells are pre-executed with interactive tables and embedded high-resolution figures.
+- **ModernBERT Fine-Tuned:** Open [`training/MODERNBERT-FINETUNED.ipynb`](training/MODERNBERT-FINETUNED.ipynb) to inspect the full 4-epoch training dynamics and evaluation on 1.26M domains.
+- **Dual-Branch Architectures:** Open [`training/Dual-Branch PERFECT.ipynb`](training/Dual-Branch PERFECT.ipynb) and [`training/Dual-Branch with Explicit Semantic Coherence.ipynb`](training/Dual-Branch with Explicit Semantic Coherence.ipynb).
+
+### 3. Re-Run Master Benchmark
+To recompute raw predictions across all models on your local GPU:
+```bash
+python scripts/run_final_master_evaluation.py
+```
+
+### 4. Academic Paper Tables
+Ready-to-copy LaTeX code is located in:
+- [`reports/tables/final_test_benchmark_table.tex`](reports/tables/final_test_benchmark_table.tex)
+- [`reports/tables/final_test_detailed_metrics.tex`](reports/tables/final_test_detailed_metrics.tex)
+
