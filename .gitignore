@@ -47,3 +47,7 @@ generate_notebooks.py
 generate_training_notebooks.py
 generate_comprehensive_report.py
 
+# Local paper and faculty drafts
+reports/PAPER_RESEARCH_MASTER_CONTEXT.md
+reports/FACULTY_PROJECT_UPDATE.md
+
