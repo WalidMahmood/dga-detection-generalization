@@ -1,0 +1,39 @@
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Large Datasets & Raw Data
+data/
+datasets/
+*.csv
+!reports/tables/*.csv
+*.tsv
+*.parquet
+*.feather
+*.zip
+*.tar.gz
+*.gz
+UMUDGA*/
+moe-wordlist-dga-models/
+.freebuff/
+
+# Model Checkpoints & Large Weights (>100MB violates GitHub)
+training/weights/
+*.bin
+*.pt
+*.pth
+*.pkl
+*.h5
+*.onnx
+weights/
+*.ckpt
+
+# Temporary & Cache
+scratch/
+tmp/
+.vscode/
+.idea/
+*.log
