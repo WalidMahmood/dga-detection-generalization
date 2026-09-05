@@ -112,8 +112,8 @@ dga_killer/
 
 ### Step 1: Environment Setup
 ```bash
-git clone https://github.com/WalidMahmood/dga_killer.git
-cd dga_killer
+git clone https://github.com/WalidMahmood/dga-detection-generalization.git
+cd dga-detection-generalization
 pip install -r requirements.txt
 ```
 
