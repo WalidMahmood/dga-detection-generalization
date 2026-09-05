@@ -1,0 +1,37 @@
+{
+  "model": "rf",
+  "train": {
+    "acc": 0.85159,
+    "f1": 0.8475579066303733,
+    "auc": 0.9350134039868387,
+    "ap": 0.9438226864023749
+  },
+  "val": {
+    "acc": 0.6657638136511376,
+    "f1": 0.5960618421715265,
+    "auc": 0.6809360610036668,
+    "ap": 0.7434066504612609,
+    "wordlist_macro_recall": 0.21769743204935801
+  },
+  "per_family_val_recall": {
+    "bigviktor": 0.2745,
+    "kraken": 0.427,
+    "manuelita": 0.18459229614807404,
+    "ranbyus": 0.8815,
+    "suppobox": 0.194,
+    "zeus-newgoz": 0.9975
+  },
+  "feature_cols": [
+    "sld_len",
+    "entropy",
+    "digit_ratio",
+    "hyphen_ratio",
+    "underscore_ratio",
+    "vowel_ratio",
+    "consonant_ratio",
+    "bigram_common_ratio",
+    "trigram_common_ratio",
+    "unique_char_ratio",
+    "repeated_char_ratio"
+  ]
+}

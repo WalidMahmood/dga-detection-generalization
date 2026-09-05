@@ -1,0 +1,38 @@
+{
+  "model": "xgboost",
+  "train": {
+    "acc": 0.8184575475929097,
+    "f1": 0.8085212549971744,
+    "auc": 0.9015051657098194,
+    "ap": 0.9164932328739475
+  },
+  "val": {
+    "acc": 0.6684307025585465,
+    "f1": 0.5839477124183007,
+    "auc": 0.699928750625599,
+    "ap": 0.7639838295403398,
+    "wordlist_macro_recall": 0.1616909287977322
+  },
+  "per_family_val_recall": {
+    "bigviktor": 0.1975,
+    "kraken": 0.4215,
+    "manuelita": 0.1455727863931966,
+    "ranbyus": 0.8915,
+    "suppobox": 0.142,
+    "zeus-newgoz": 0.994
+  },
+  "feature_cols": [
+    "sld_len",
+    "entropy",
+    "digit_ratio",
+    "hyphen_ratio",
+    "underscore_ratio",
+    "vowel_ratio",
+    "consonant_ratio",
+    "bigram_common_ratio",
+    "trigram_common_ratio",
+    "unique_char_ratio",
+    "repeated_char_ratio"
+  ],
+  "use_gpu": true
+}

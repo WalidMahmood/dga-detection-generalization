@@ -37,3 +37,13 @@ tmp/
 .vscode/
 .idea/
 *.log
+project-1-sentiment-analysis-01.ipynb
+dual-branch.ipynb
+reprocess.py
+fix_kaggle_notebooks.py
+generate_dual_kaggle.py
+generate_dual_modernbert.py
+generate_notebooks.py
+generate_training_notebooks.py
+generate_comprehensive_report.py
+
