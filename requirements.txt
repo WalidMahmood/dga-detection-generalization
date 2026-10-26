@@ -1,3 +1,13 @@
+# Dependency stack for the benchmark in this repository.
+#
+# Execution environments used for the published results:
+#   - Deep models (Dual-Branch v3 / Coherent, ModernBERT fine-tune, final evaluation):
+#       Kaggle notebook, Tesla T4 16 GB, Python 3.10/3.11, PyTorch 2.x, CUDA 12
+#   - Classical baselines (RF, XGBoost):
+#       local workstation, CPU / RTX 3050
+# Constraints are minimums (>=), not exact pins; recent Kaggle and pip
+# environments provide compatible versions of everything below.
+
 # Core Machine Learning & Deep Learning
 torch>=2.0.0
 transformers>=4.41.0

@@ -14,7 +14,7 @@ Usage:
 
 Reference: senior-data-scientist skill — build_feature_pipeline, evaluate_model, SHAP
 """
-import argparse, json, pathlib, math, warnings
+import argparse, json, pathlib, math, warnings, os
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -35,7 +35,8 @@ warnings.filterwarnings("ignore")
 sns.set_theme(style="whitegrid")
 plt.rcParams.update({"figure.dpi":150, "savefig.dpi":300})
 
-BASE = Path(r"G:\dga_killer")
+# Dataset root; override via the DGA_DATA_ROOT environment variable
+BASE = Path(os.environ.get("DGA_DATA_ROOT", r"G:\dga_killer"))
 DATA_PROC = BASE / "data" / "processed"
 RESULTS = BASE / "results" / "baselines"
 RESULTS.mkdir(parents=True, exist_ok=True)

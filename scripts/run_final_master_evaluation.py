@@ -53,7 +53,8 @@ plt.rcParams['ytick.labelsize'] = 9
 plt.rcParams['legend.fontsize'] = 9
 plt.rcParams['figure.titlesize'] = 14
 
-BASE_DIR = Path(r"G:\dga_killer")
+# Dataset root; override via the DGA_DATA_ROOT environment variable
+BASE_DIR = Path(os.environ.get("DGA_DATA_ROOT", r"G:\dga_killer"))
 DATA_DIR = BASE_DIR / "data" / "processed"
 WEIGHTS_DIR = BASE_DIR / "training" / "weights"
 VOCAB_DIR = BASE_DIR / "data" / "vocab"

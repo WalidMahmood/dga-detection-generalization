@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Build unified DGA killer dataset per CSE427 Master Plan v2
+Build the unified wordlist-DGA benchmark dataset (Leave-Families-Out split v2)
 - Merge UMUDGA + HF sources, dedup, apply v2 split, caps, balanced benign.
 - Outputs raw and processed splits + reports + vocab.
 """
-import pathlib, gzip, csv, json, random, re, collections
+import os, pathlib, gzip, csv, json, random, re, collections
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -13,7 +13,8 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
-BASE = Path(r"G:\dga_killer")
+# Dataset root; override via the DGA_DATA_ROOT environment variable
+BASE = Path(os.environ.get("DGA_DATA_ROOT", r"G:\dga_killer"))
 UMUDGA_BASE = BASE / "UMUDGA - University of Murcia Domain Generation Algorithm Dataset" / "UMUDGA - University of Murcia Domain Generation Algorithm Dataset" / "Fully Qualified Domain Names"
 HF_BASE = BASE / "moe-wordlist-dga-models" / "datasets"
 

@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .ipynb_checkpoints/
 .pytest_cache/
+.zcode/
 
 # Large Datasets & Raw Data
 data/
@@ -47,7 +48,26 @@ generate_notebooks.py
 generate_training_notebooks.py
 generate_comprehensive_report.py
 
-# Local paper and faculty drafts
+# Local drafts & derived reports (kept on disk, not published)
+CSE427_DGA_MASTER_PLAN.md
 reports/PAPER_RESEARCH_MASTER_CONTEXT.md
 reports/FACULTY_PROJECT_UPDATE.md
+reports/FACULTY_PROJECT_UPDATE.pdf
+reports/FACULTY_PROJECT_UPDATE.html
+/reports/*.pdf
+/*.pdf
+/DATA_READINESS_REPORT.txt
+/results/
+/paper/
+scripts/build_faculty_update_pdf.py
 
+# Development-iteration notebooks (canonical executed runs are tracked)
+training/03_dual_branch.ipynb
+training/03_dual_branch_kaggle.ipynb
+training/03_dual_branch_kaggle_fp32.ipynb
+training/dual-branch (3)-modernbert.ipynb
+training/dual-branch-gatefix.ipynb
+training/dual-branch-gatefix-v3.ipynb
+
+# Duplicate figure exports (canonical copies live in reports/figures/)
+training/figures/fig*
