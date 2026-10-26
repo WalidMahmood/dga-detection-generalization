@@ -58,7 +58,7 @@ reports/FACULTY_PROJECT_UPDATE.html
 /*.pdf
 /DATA_READINESS_REPORT.txt
 /results/
-/paper/
+/paper/render/
 scripts/build_faculty_update_pdf.py
 
 # Development-iteration notebooks (canonical executed runs are tracked)

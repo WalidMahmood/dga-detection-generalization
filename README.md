@@ -8,7 +8,7 @@
 
 > **Research question:** Does an explicit word-level semantic coherence signal (FastText pairwise cosine similarity) let a compact classifier generalize to **zero-day wordlist-based Domain Generation Algorithms** under a fully blind Leave-Families-Out protocol — and where does it beat, or lose to, a fine-tuned 149M-parameter ModernBERT?
 
-This repository contains the complete study: dataset construction, the leak-free evaluation protocol, seven benchmarked systems, all executed training notebooks, the frozen test-set artifacts (metrics, tables, 300-DPI figures), and a verification script that recomputes every reported number from the committed metrics file.
+This repository contains the complete study: dataset construction, the leak-free evaluation protocol, seven benchmarked systems, all executed training notebooks, the frozen test-set artifacts (metrics, tables, 300-DPI figures), a verification script that recomputes every reported number from the committed metrics file, and a conference-formatted write-up of the study ([`paper/paper.pdf`](paper/paper.pdf)).
 
 ---
 
@@ -310,6 +310,8 @@ Then: `python scripts/run_final_master_evaluation.py` regenerates the figures, t
 ---
 
 ## 12. Citation
+
+A conference-formatted write-up of this study is included at [`paper/paper.pdf`](paper/paper.pdf) (LaTeX source in [`paper/paper.tex`](paper/paper.tex), self-contained with figures).
 
 If this work or the benchmark protocol is useful to you, please cite:
 
