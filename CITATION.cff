@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: Semantic Coherence and Transformer Architectures for Zero-Day Wordlist DGA Detection
+message: >-
+  If you use this benchmark, code, or findings in your work, please cite it
+  using this metadata.
+type: software
+authors:
+  - given-names: Walid
+    family-names: Mahmood
+    affiliation: Department of Computer Science and Engineering, BRAC University
+identifier: https://github.com/WalidMahmood/dga-detection-generalization
+repository-code: https://github.com/WalidMahmood/dga-detection-generalization
+abstract: >-
+  A leak-free Leave-Families-Out benchmark for zero-day wordlist-based Domain
+  Generation Algorithm (DGA) detection on 1.3M domains spanning 43 DGA
+  families. Seven systems are compared, including two proposed dual-branch
+  architectures (Dual-Branch v3, 4.10M parameters; Dual-Branch Coherent, 0.73M
+  parameters, with an explicit 6-dimensional FastText pairwise-cosine coherence
+  vector), a fine-tuned ModernBERT-Base (149M), and two soft-voting ensembles.
+  Under fully blind conditions the 0.73M coherence model outperforms the 149M
+  transformer on the hardest unseparated dictionary family (matsnu, +24.4%
+  relative recall with 204x fewer parameters), while the transformer dominates
+  aggregate F1 and benign specificity.
+keywords:
+  - DGA detection
+  - domain generation algorithms
+  - wordlist DGA
+  - zero-day generalization
+  - semantic coherence
+  - FastText
+  - ModernBERT
+  - BiLSTM
+  - DNS security
+  - machine learning security
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-26"

@@ -1,46 +1,34 @@
-# Training — Baselines & Models
+# Training — Baselines, Architectures & Final Benchmark
 
-Separate notebooks per model, each trains on `train` (32 families) and validates on `val-unseen` (6 new families) only. `test-unseen` is never touched until `06_Final_Test`.
+Each notebook trains on the 32-family train split, validates on the 6 held-out val-unseen families, and never touches `test_unseen.csv` until the final evaluation notebook. All notebooks are committed **executed** (outputs intact); see [`docs/NOTEBOOK_GUIDE.md`](../docs/NOTEBOOK_GUIDE.md) for the full map, environments, and engineering log.
 
 ## Notebooks
 
-| # | Notebook | Model | Hardware | Time |
-|---|----------|-------|----------|------|
-| 01 | `01_rf_baseline.ipynb` | Random Forest (300 trees, 11 lexical features) | CPU | ~10 min |
-| 02 | `02_xgboost_baseline.ipynb` | XGBoost (400 trees, depth 8, lr 0.05) — `gpu_hist` on RTX 3050 if `USE_GPU=True` | RTX 3050 GPU | ~20 min |
-| 03 | `03_char_bilstm.ipynb` | Char Bi-LSTM (train-only vocab 38) | RTX 3050 | ~2h |
-| 04 | `04_fasttext_only.ipynb` | Frozen FastText `.bin` + wordninja | RTX 3050 | ~1.5h |
-| 05 | `05_dual_branch.ipynb` | Dual (Bi-LSTM + FastText concat) | RTX 3050 | ~3h |
-| 06 | `06 ModernBERT` | ModernBERT-base fine-tune on **this** split | Kaggle T4/P100 | ~5h |
+| # | Notebook | Model | Hardware | Artifacts |
+|---|----------|-------|----------|-----------|
+| 01 | `01_rf_baseline.ipynb` | Random Forest (100 trees, class-weighted, 11 lexical features) | Local CPU | `weights/rf_best.pkl`, `results/baselines/rf_metrics.json`, `figures/rf_*.png` |
+| 02 | `02_xgboost_baseline.ipynb` | XGBoost (400 trees, depth 8, lr 0.05, `hist` on GPU) | Local RTX 3050 | `weights/xgb_best.pkl`, `results/baselines/xgb_metrics.json`, `figures/xgb_*.png` |
+| 03 | `Dual-Branch PERFECT.ipynb` (executed) + `03_dual_branch_kaggle_fp32_perfect.ipynb` (code-only, earlier revision) | Dual-Branch v3 (4.10M): char BiLSTM + FastText word-sequence BiLSTM, gated fusion | Kaggle T4 16 GB, FP32, effective batch 128 | `weights/dual_branch_best.pt` |
+| 04 | `Dual-Branch with Explicit Semantic Coherence.ipynb` (executed) + `05_dual_branch_coherent.ipynb` (code-only) | **Dual-Branch Coherent (0.73M)**: same branches + explicit 6D FastText pairwise-cosine coherence vector | Kaggle T4 16 GB | `weights/dual_branch_coherent_best.pt` |
+| 05 | `MODERNBERT-FINETUNED.ipynb` (executed) + `04_modernbert_finetune.ipynb` (code-only) | ModernBERT-Base (149M) fine-tune, 4 epochs, AdamW lr 3e-5, FP16 | Kaggle T4 16 GB | `weights/modernbertweights/` (HF format) |
+| 06 | `06_final_test_evaluation.ipynb` (mirror: `FINAL-EVALUATION.ipynb`) | Frozen test-unseen benchmark of all 7 systems; generates `reports/` figures, tables, metrics | Kaggle T4 / artifacts | `reports/{figures,tables,metrics}/` |
 
-Only 01 & 02 are in this folder now (small baselines). 03-06 will be added next.
+## Shared protocol
 
-## What each notebook prints (everything)
+- **Checkpoint criterion:** macro recall on the val-unseen *wordlist* families (`suppobox`, `bigviktor`, `manuelita`), with a non-wordlist recall guardrail floor — rationale in [`docs/METHODOLOGY.md`](../docs/METHODOLOGY.md) §5.
+- **Sampling:** weighted sampler targets ~1:1 wordlist:non-wordlist per batch.
+- **Determinism:** `SEED=42` across Python/NumPy/PyTorch; char-dropout 5% (train only); label smoothing 0.05 in the deep models.
+- **FastText:** `cc.en.300.bin`, frozen — never fine-tuned.
+- **Test discipline:** `test_unseen.csv` is loaded exactly once, in notebook 06, after every training decision is frozen.
 
-For **both train and val** (so you see overfit):
-- `classification_report` (precision/recall/F1 per class), `accuracy`, `F1`, `ROC-AUC`, `PR-AUC`
-- Confusion matrix (`confusion_train/val.png`)
-- ROC + PR curves side-by-side (`curves_train/val.png`)
-- Per-family recall bar on val (blue=wordlist, orange=non-wordlist, `per_family_recall_val.png`)
-- Feature part (RF/XGBoost only): correlation heatmap (`rf_correlation.png`), impurity + permutation + SHAP (`rf_feature_*.png`, `xgb_feature_*.png`), CSV `results/baselines/*_feature_importance.csv`
-- Wordlist macro-recall = checkpoint criterion (mean of `suppobox/bigviktor/manuelita`)
+## What the baseline notebooks print
 
-## Outputs
+For **both train and val** (so overfitting is visible): per-class `classification_report`, accuracy, F1, ROC-AUC, PR-AUC, confusion matrices (`*_confusion_{train,val}.png`), ROC + PR curves (`*_curves_{train,val}.png`), per-family recall bars on val (wordlist vs non-wordlist color-coded), correlation heatmap, impurity/gain + permutation + SHAP importances (`*_feature_*.png`), and `results/baselines/*_feature_importance.csv`.
 
-- Weights: `training/weights/rf_best.pkl`, `xgb_best.pkl` (also `results/baselines/`)
-- Metrics: `results/baselines/rf_metrics.json`, `xgb_metrics.json`
-- Figures: `training/figures/*.png` (300 DPI, ready for paper)
+## Reproducing
 
-## How to run on RTX 3050
+1. Mount the dataset (see [`docs/DATASETS.md`](../docs/DATASETS.md)) and place `cc.en.300.bin` on the path.
+2. Run notebooks in order 01 → 02 → 03 → 04 → 05 → 06 on a ≥16 GB GPU (deep models ran on Kaggle T4).
+3. Or regenerate all figures/tables/metrics from checkpoints with `scripts/run_final_master_evaluation.py`, and verify the published numbers with `scripts/verify_results.py`.
 
-```bash
-# in VS Code / Jupyter Lab
-open training/01_rf_baseline.ipynb → Run All
-open training/02_xgboost_baseline.ipynb → set USE_GPU=True → Run All
-```
-
-No test data is used. Final one-shot test will be `training/06_Final_Test_Unseen.ipynb` loading all `*_best.pkl`.
-
-## Legacy
-
-`scripts/train_rf_xgboost.py` is the same logic as the notebooks as a `.py` script — kept for reference, but notebooks are the primary deliverable.
+Model weights are reproducible from the notebooks and are not committed to the repository.

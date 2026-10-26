@@ -1,5 +1,5 @@
 # DATA READINESS EVALUATION FOR TRAINING
-## DGA Killer: CSE427 Master Plan v2 Implementation
+## Leave-Families-Out Split v2 — Validation Report
 
 ---
 
@@ -7,7 +7,7 @@
 
 **STATUS: PRODUCTION-READY FOR TRAINING**
 
-The dataset has been successfully constructed, preprocessed, and validated per the CSE427 Master Plan v2. All critical quality checks pass. Data is ready for Phase 2+ model development.
+The dataset has been successfully constructed, preprocessed, and validated per the split-v2 design. All critical quality checks pass. Data is ready for model development.
 
 ---
 
@@ -172,7 +172,7 @@ All families meet minimum sample requirements:
 
 ## 10. BENCHMARK ANCHORS & EVALUATION PROTOCOL
 
-**Performance Targets (per CSE427 Master Plan):**
+**Performance Targets:**
 
 | Benchmark | Source | Value | Protocol |
 |-----------|--------|-------|----------|
@@ -280,5 +280,5 @@ All families meet minimum sample requirements:
 ---
 
 **Evaluation Date:** 2026-08-29  
-**Dataset Version:** CSE427 v2 (rebalanced for hard-case visibility + benchmark validity)  
+**Dataset Version:** LFO v2 (rebalanced for hard-case visibility + benchmark validity)  
 **Status:** ✅ READY FOR TRAINING
